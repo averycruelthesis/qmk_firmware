@@ -66,20 +66,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         register_code(KC_LCMD);
 		register_code(KC_LCTL);
 		register_code(KC_Q);
-      }
-      return false;
+      } else{
+        unregister_code(KC_LCMD);
+		unregister_code(KC_LCTL);
+		unregister_code(KC_Q);
+		}
+      break;
     case NEW_TAB:
       if (record->event.pressed) {
         register_code(KC_LCMD);
-		register_code(KC_T);
+	    register_code(KC_T);
+      } else {
+        unregister_code(KC_LCMD);
+		unregister_code(KC_T);
       }
-      return false;
+      break;
     case CTAGS_NEXT:
       if (record->event.pressed) {
         register_code(KC_LCMD);
 		register_code(KC_LBRC);
+      } else {
+        unregister_code(KC_LCMD);
+		unregister_code(KC_LBRC);
       }
-      return false;
+      break;
   }
   return true;
 }
