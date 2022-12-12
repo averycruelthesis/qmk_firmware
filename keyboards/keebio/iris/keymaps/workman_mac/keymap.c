@@ -1,11 +1,13 @@
 #include QMK_KEYBOARD_H
 
-
-#define _WORKMAN 0
-#define _NAVNUM  1
-#define _SYMBOLS 2
 #define LT_BSPC_SYM  LT(_SYMBOLS,  KC_BSPC)
 #define LT_SPC_NN    LT(_NAVNUM, KC_SPC)
+
+enum layers {
+  _WORKMAN,  // default layer
+  _NAVNUM,  // symbols
+  _SYMBOLS,  // media keys
+};
 
 enum custom_keycodes {
   LOCK = SAFE_RANGE,
@@ -60,36 +62,36 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case LOCK:
-      if (record->event.pressed) {
-        register_code(KC_LCMD);
-		register_code(KC_LCTL);
-		register_code(KC_Q);
-      } else{
-        unregister_code(KC_LCMD);
-		unregister_code(KC_LCTL);
-		unregister_code(KC_Q);
-		}
-      break;
-    case NEW_TAB:
-      if (record->event.pressed) {
-        register_code(KC_LCMD);
-	    register_code(KC_T);
-      } else {
-        unregister_code(KC_LCMD);
-		unregister_code(KC_T);
-      }
-      break;
-    case CTAGS_NEXT:
-      if (record->event.pressed) {
-        register_code(KC_LCMD);
-		register_code(KC_LBRC);
-      } else {
-        unregister_code(KC_LCMD);
-		unregister_code(KC_LBRC);
-      }
-      break;
-  }
-  return true;
+    switch (keycode) {
+        case LOCK:
+            if (record->event.pressed) {
+                register_code(KC_LCMD);
+                register_code(KC_LCTL);
+                register_code(KC_Q);
+            } else{
+                unregister_code(KC_LCMD);
+                unregister_code(KC_LCTL);
+                unregister_code(KC_Q);
+            }
+            break;
+        case NEW_TAB:
+            if (record->event.pressed) {
+                register_code(KC_LCMD);
+                register_code(KC_T);
+            } else {
+                unregister_code(KC_LCMD);
+                unregister_code(KC_T);
+            }
+            break;
+        case CTAGS_NEXT:
+            if (record->event.pressed) {
+                register_code(KC_LCMD);
+                register_code(KC_LBRC);
+            } else {
+                unregister_code(KC_LCMD);
+                unregister_code(KC_LBRC);
+            }
+            break;
+    }
+    return true;
 }
